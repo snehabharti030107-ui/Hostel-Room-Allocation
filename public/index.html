@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HostelHub | Room Allocation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section id="authView" class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand-mark">H</div>
+      <p class="eyebrow">HOSTEL MANAGEMENT</p>
+      <h1 id="authTitle">Welcome back</h1>
+      <p class="muted" id="authSubtitle">Sign in to manage hostel rooms and students.</p>
+      <form id="authForm">
+        <div id="nameGroup" class="field hidden"><label>Admin name</label><input id="adminName" placeholder="Your name" /></div>
+        <div class="field"><label>Email address</label><input id="authEmail" type="email" placeholder="admin@example.com" required /></div>
+        <div class="field"><label>Password</label><input id="authPassword" type="password" placeholder="At least 6 characters" required minlength="6" /></div>
+        <button class="btn primary full" id="authSubmit">Sign in</button>
+      </form>
+      <p class="auth-note" id="authHint">First time? <button type="button" class="text-btn" id="toggleAuth">Create the first admin account</button></p>
+      <p id="authMessage" class="message"></p>
+    </div>
+  </section>
+
+  <div id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark small">H</div><div><strong>HostelHub</strong><span>Room Allocation</span></div></div>
+      <p class="nav-label">WORKSPACE</p>
+      <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+      <button class="nav-link" data-page="students"><span>♙</span> Students</button>
+      <button class="nav-link" data-page="rooms"><span>▤</span> Rooms</button>
+      <button class="nav-link" data-page="allocations"><span>⇄</span> Allocations</button>
+      <div class="sidebar-bottom"><div class="admin-chip"><div class="avatar">A</div><div><strong id="adminDisplay">Administrator</strong><span>Admin account</span></div></div><button id="logoutBtn" class="logout">↪ Sign out</button></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">HOSTEL ADMINISTRATION</p><h2 id="pageTitle">Dashboard</h2></div><div class="top-actions"><span class="live-dot"></span><span>System online</span><div class="avatar">A</div></div></header>
+      <div id="alert" class="alert hidden"></div>
+      <section id="dashboardPage" class="page">
+        <div class="welcome"><div><p class="eyebrow">OVERVIEW</p><h1>Good day, <span id="welcomeName">Admin</span> 👋</h1><p>Here is what's happening in your hostel today.</p></div><button class="btn primary" data-go="allocations">＋ New allocation</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon blue">♙</div><p>Total students</p><h2 id="statStudents">0</h2><span>Registered students</span></article>
+          <article class="stat-card"><div class="stat-icon purple">▤</div><p>Total rooms</p><h2 id="statRooms">0</h2><span>Rooms in the hostel</span></article>
+          <article class="stat-card"><div class="stat-icon orange">▣</div><p>Occupied beds</p><h2 id="statOccupied">0</h2><span>Currently allocated</span></article>
+          <article class="stat-card"><div class="stat-icon green">✓</div><p>Available beds</p><h2 id="statAvailable">0</h2><span>Ready for allocation</span></article>
+        </div>
+        <div class="content-card"><div class="card-heading"><div><h3>Room occupancy</h3><p>Current hostel capacity overview</p></div><span class="pill" id="occupancyPercent">0% occupied</span></div><div class="progress-track"><div id="occupancyBar" class="progress-fill"></div></div><div class="progress-labels"><span id="occupiedLabel">0 beds occupied</span><span id="totalBedsLabel">0 total beds</span></div></div>
+        <div class="content-card"><div class="card-heading"><div><h3>Quick actions</h3><p>Common administration tasks</p></div></div><div class="quick-grid"><button class="quick-action" data-go="students"><b>＋</b><span><strong>Register student</strong><small>Add a new student record</small></span> →</button><button class="quick-action" data-go="rooms"><b>▤</b><span><strong>Add a room</strong><small>Create a hostel room</small></span> →</button><button class="quick-action" data-go="allocations"><b>⇄</b><span><strong>Allocate room</strong><small>Assign a student to a room</small></span> →</button></div></div>
+      </section>
+      <section id="studentsPage" class="page hidden">
+        <div class="section-intro"><div><h1>Students</h1><p>Register and manage hostel students.</p></div><button class="btn primary" id="showStudentForm">＋ Add student</button></div>
+        <form id="studentForm" class="form-card hidden"><div class="card-heading"><div><h3 id="studentFormTitle">Register student</h3><p>Enter the student's details below.</p></div><button type="button" class="icon-btn" data-close="studentForm">×</button></div><input type="hidden" id="studentId"/><div class="form-grid"><div class="field"><label>Full name</label><input id="studentName" required placeholder="Student name"/></div><div class="field"><label>Roll number</label><input id="studentRoll" required placeholder="e.g. 24BEIT001"/></div><div class="field"><label>Email</label><input id="studentEmail" type="email" required placeholder="student@email.com"/></div><div class="field"><label>Phone</label><input id="studentPhone" required placeholder="Phone number"/></div><div class="field"><label>Department</label><input id="studentDepartment" required placeholder="e.g. Information Technology"/></div><div class="field"><label>Year</label><select id="studentYear" required><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></div></div><div class="form-actions"><button type="button" class="btn secondary" data-close="studentForm">Cancel</button><button class="btn primary">Save student</button></div></form>
+        <div class="content-card"><div class="table-toolbar"><div><h3>Student directory</h3><p id="studentCount">0 students</p></div><input class="search" id="studentSearch" placeholder="Search students..."/></div><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>ROLL NUMBER</th><th>DEPARTMENT</th><th>YEAR</th><th>PHONE</th><th>ACTIONS</th></tr></thead><tbody id="studentsTable"></tbody></table></div></div>
+      </section>
+      <section id="roomsPage" class="page hidden">
+        <div class="section-intro"><div><h1>Hostel rooms</h1><p>Manage rooms, capacities and availability.</p></div><button class="btn primary" id="showRoomForm">＋ Add room</button></div>
+        <form id="roomForm" class="form-card hidden"><div class="card-heading"><div><h3 id="roomFormTitle">Add new room</h3><p>Set the room details and maximum capacity.</p></div><button type="button" class="icon-btn" data-close="roomForm">×</button></div><input type="hidden" id="roomId"/><div class="form-grid"><div class="field"><label>Room number</label><input id="roomNumber" required placeholder="e.g. 101"/></div><div class="field"><label>Block</label><input id="roomBlock" required placeholder="e.g. A Block"/></div><div class="field"><label>Floor</label><input id="roomFloor" type="number" min="0" required placeholder="0"/></div><div class="field"><label>Bed capacity</label><input id="roomCapacity" type="number" min="1" required placeholder="e.g. 3"/></div></div><div class="form-actions"><button type="button" class="btn secondary" data-close="roomForm">Cancel</button><button class="btn primary">Save room</button></div></form>
+        <div id="roomsGrid" class="rooms-grid"></div>
+      </section>
+      <section id="allocationsPage" class="page hidden">
+        <div class="section-intro"><div><h1>Room allocations</h1><p>Assign rooms and release students when they leave.</p></div><button class="btn primary" id="showAllocationForm">＋ New allocation</button></div>
+        <form id="allocationForm" class="form-card hidden"><div class="card-heading"><div><h3>Allocate a room</h3><p>Only students without an active allocation and rooms with free beds are available.</p></div><button type="button" class="icon-btn" data-close="allocationForm">×</button></div><div class="form-grid"><div class="field"><label>Select student</label><select id="allocationStudent" required><option value="">Choose student</option></select></div><div class="field"><label>Select available room</label><select id="allocationRoom" required><option value="">Choose room</option></select></div></div><div class="form-actions"><button type="button" class="btn secondary" data-close="allocationForm">Cancel</button><button class="btn primary">Confirm allocation</button></div></form>
+        <div class="content-card"><div class="table-toolbar"><div><h3>Allocation history</h3><p>Active and released room assignments</p></div><select id="allocationFilter" class="filter-select"><option value="all">All records</option><option value="active">Active only</option><option value="released">Released only</option></select></div><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>ROOM</th><th>ALLOCATED ON</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="allocationsTable"></tbody></table></div></div>
+      </section>
+      <footer>HostelHub · Hostel Room Allocation System</footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
